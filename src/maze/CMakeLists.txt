@@ -1,9 +1,4 @@
-#cmake_minimum_required(VERSION 3.5)
-#
-#project(Maze VERSION 0.1 LANGUAGES CXX)
-
 set(target maze)
-include_directories(.)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -24,6 +19,8 @@ set(PROJECT_SOURCES
         mainwindow.cc
         mainwindow.h
         mainwindow.ui
+#        ../core/model/generator.h
+#        ../core/model/generator.cc
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -49,7 +46,9 @@ else()
     endif()
 endif()
 
-target_link_libraries(maze PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(maze PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
+utils
+model)
 
 set_target_properties(maze PROPERTIES
     MACOSX_BUNDLE_maze_IDENTIFIER my.example.com

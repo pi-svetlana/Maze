@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "../core/utils/utils.h"
+#include "../core/model/generator.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,6 +23,8 @@ private slots:
     void on_wall_color_btn_clicked();
 
     void on_path_color_btn_clicked();
+
+    void on_generate_btn_clicked();
 
 private:
     Ui::MainWindow *ui;

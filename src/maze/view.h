@@ -13,6 +13,8 @@ public:
     void setBgColor(QColor);
     void setWallColor(QColor);
     void setPathColor(QColor);
+    void setRightWalls(std::vector<std::vector<int>>);
+    void setBottomWalls(std::vector<std::vector<int>>);
 signals:
 
 protected:
@@ -21,8 +23,9 @@ private:
     QColor bg_color_ = Qt::gray;
     QColor wall_color_ = Qt::black;
     QColor path_color_ = Qt::red;
-    //    QVector<QVector<bool>> rightWalls_;
-    //    QVector<QVector<bool>> bottomWalls_;
+
+    std::vector<std::vector<int>> right_walls_{};
+    std::vector<std::vector<int>> bottom_walls_{};
 };
 
 #endif // VIEW_H
