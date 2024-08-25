@@ -4,6 +4,8 @@
 #include <QPainter>
 #include <QPen>
 #include <QWidget>
+#include <../core/utils/utils.h>
+#include <../core/controller/controller.h>
 
 class View : public QWidget
 {
@@ -13,8 +15,8 @@ public:
     void setBgColor(QColor);
     void setWallColor(QColor);
     void setPathColor(QColor);
-    void setRightWalls(std::vector<std::vector<int>>);
-    void setBottomWalls(std::vector<std::vector<int>>);
+//    void setRightWalls(std::vector<std::vector<int>>);
+//    void setBottomWalls(std::vector<std::vector<int>>);
 signals:
 
 protected:
@@ -24,8 +26,10 @@ private:
     QColor wall_color_ = Qt::black;
     QColor path_color_ = Qt::red;
 
-    std::vector<std::vector<int>> right_walls_{};
-    std::vector<std::vector<int>> bottom_walls_{};
+    ps::controller controller_;
+    ps::Maze maze_;
+//    std::vector<std::vector<int>> right_walls_{};
+//    std::vector<std::vector<int>> bottom_walls_{};
 };
 
 #endif // VIEW_H

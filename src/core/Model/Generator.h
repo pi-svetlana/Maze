@@ -8,23 +8,16 @@
 namespace ps {
 class Generator {
  public:
-  Generator(){};
+  explicit Generator(Maze& maze) : maze_(maze){};
   ~Generator(){};
-  Maze* GenerateMaze(size_t rows, size_t cols);
+  void GenerateMaze(size_t rows, size_t cols);
 
  private:
-  static void AddVerticalWalls(std::vector<int>& line,
-                               std::vector<std::vector<int> >& vertical_walls,
-                               size_t row);
-  static void AddHorizontalWalls(
-      std::vector<int>& line, std::vector<std::vector<int> >& horizontal_walls,
-      size_t row);
-  static void PrepareNewLine(std::vector<int>& line,
-                             std::vector<std::vector<int> >& horizontal_walls,
-                             size_t row, int& set_num);
-  static void CheckEndLine(std::vector<int>& line,
-                           std::vector<std::vector<int> >& vertical_walls,
-                           size_t row);
+    Maze maze_;
+  void AddVerticalWalls(std::vector<int>& line, size_t row);
+  void AddHorizontalWalls(std::vector<int>& line, size_t row);
+  void PrepareNewLine(std::vector<int>& line, size_t row, int& set_num);
+  void CheckEndLine(std::vector<int>& line, size_t row);
 };
 }  // namespace ps
 

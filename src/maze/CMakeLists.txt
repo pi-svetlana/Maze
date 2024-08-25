@@ -48,7 +48,8 @@ endif()
 
 target_link_libraries(maze PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
 utils
-model)
+model
+controller)
 
 set_target_properties(maze PROPERTIES
     MACOSX_BUNDLE_maze_IDENTIFIER my.example.com

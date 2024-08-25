@@ -59,12 +59,12 @@ void MainWindow::on_path_color_btn_clicked()
 
 void MainWindow::on_generate_btn_clicked()
 {
-    ps::Generator gen;
-    size_t rows = ui->rows->value();
-    size_t cols = ui->cols->value();
-    ps::Maze* res = gen.GenerateMaze(rows, cols);
-    ui->maze_window->setRightWalls(res->vertical_walls);
-    ui->maze_window->setBottomWalls(res->horizontal_walls);
-    ui->maze_window->update();
+//    ps::Generator gen;
+//    size_t rows = ui->rows->value();
+//    size_t cols = ui->cols->value();
+//    ps::Maze* res = gen.GenerateMaze(rows, cols);
+//    ui->maze_window->setRightWalls(res->vertical_walls);
+//    ui->maze_window->setBottomWalls(res->horizontal_walls);
+//    ui->maze_window->update();
 }
 

@@ -3,17 +3,20 @@
 
 #include "../utils//utils.h"
 #include "generator.h"
+#include "reader.h"
 
 namespace ps {
 
     class MazeModel {
     public:
-        MazeModel() {};
+        MazeModel() : reader_(maze_), generator_(maze_){};
         ~MazeModel() {};
 
     private:
         Generator generator_;
-        std::unique_ptr<Maze> maze_;
+        Reader reader_;
+        Maze maze_;
+//        std::unique_ptr<Maze> maze_;
     };
 
 } // ps

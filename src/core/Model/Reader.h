@@ -9,17 +9,13 @@
 namespace ps {
 class Reader {
  public:
-  Reader() {}
+  explicit Reader(Maze &maze) : maze_(maze){}
   ~Reader() {}
-  void ReadFile(std::string &file_path);
+  void ReadFile(const std::string &file_path);
 
  private:
-  Maze *maze_;
-  static void ReadMatrix(std::ifstream &stream,
-                         std::vector<std::vector<int> > &matrix, size_t rows,
-                         size_t cols);
-  //        std::ifstream stream_;
-  //        std::regex number_("^[01]");
+  Maze maze_;
+  void ReadMatrix(std::ifstream &stream,  Blocks type);
 };
 }  // namespace ps
 
