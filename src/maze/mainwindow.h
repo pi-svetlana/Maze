@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include "../core/utils/utils.h"
-#include "../core/model/generator.h"
+#include <../core/controller/controller.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -14,7 +14,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(ps::Controller* c, QWidget *parent = nullptr);
     ~MainWindow();
 
 private slots:
@@ -26,7 +26,12 @@ private slots:
 
     void on_generate_btn_clicked();
 
+    void on_open_file_btn_clicked();
+
+    void on_save_file_btn_clicked();
+
 private:
     Ui::MainWindow *ui;
+    ps::Controller* controller_;
 };
 #endif // MAINWINDOW_H

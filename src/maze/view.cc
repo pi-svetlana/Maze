@@ -14,9 +14,6 @@ void View::paintEvent(QPaintEvent* event) {
     painter.drawRect(rect());
 
     painter.setPen(QPen(wall_color_, 2));
-//    right_walls_ = {{1, 0, 1}, {0, 1, 1}, {0, 0, 1}};
-//    bottom_walls_ = {{0, 0, 0}, {0, 1, 1}, {1, 1, 1}};
-
     if (!maze_.empty()) {
     float cellWidth = (float)width() / maze_[0].size();
     float cellHeight = (float)height() / maze_.size();
@@ -40,6 +37,5 @@ void View::paintEvent(QPaintEvent* event) {
 void View::setBgColor(QColor color) { bg_color_ = color; }
 void View::setWallColor(QColor color) { wall_color_ = color; }
 void View::setPathColor(QColor color) { path_color_ = color; }
-//void View::setRightWalls(std::vector<std::vector<int>> vertical) { right_walls_ = vertical; }
-//void View::setBottomWalls(std::vector<std::vector<int>> horizontal) { bottom_walls_ = horizontal; }
+void View::setMaze(std::vector<std::vector<int>> maze) { maze_ = maze; }
 

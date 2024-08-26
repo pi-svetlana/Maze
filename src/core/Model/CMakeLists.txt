@@ -6,6 +6,8 @@ add_library(${target}
         generator.h
         reader.cc
         reader.h
+        writer.cc
+        writer.h
         maze_model.cc
         maze_model.h
 )

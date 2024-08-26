@@ -1,11 +1,9 @@
 #include "generator.h"
 
 namespace ps {
-void Generator::GenerateMaze(size_t rows, size_t cols) {
-//  Maze* res = new Maze();
-//  res->vertical_walls.resize(rows, std::vector<int>(cols, 0));
-//  res->horizontal_walls.resize(rows, std::vector<int>(cols, 0));
-    maze_.resize(rows, std::vector<int>(cols, 0));
+void Generator::GenerateMaze(Maze& maze, size_t rows, size_t cols) {
+  maze.clear();
+  maze.resize(rows, std::vector<int>(cols, 0));
   int set_num = 1;
   std::vector<int> line;
   for (size_t i = 0; i < cols; ++i) {
@@ -13,22 +11,22 @@ void Generator::GenerateMaze(size_t rows, size_t cols) {
   }
   srand(time(0));
   for (size_t i = 0; i < rows - 1; ++i) {
-    AddVerticalWalls(line, i);
-    AddHorizontalWalls(line, i);
-    PrepareNewLine(line, i, set_num);
+    AddVerticalWalls(line, maze,i);
+    AddHorizontalWalls(line, maze, i);
+    PrepareNewLine(line, maze, i, set_num);
   }
-  AddVerticalWalls(line, rows - 1);
+  AddVerticalWalls(line, maze, rows - 1);
   for (size_t i = 0; i < cols; ++i) {
-      SetBit(maze_[rows - 1][i], kBottom);
+      SetBit(maze[rows - 1][i], kBottom);
   }
-  CheckEndLine(line, rows - 1);
+  CheckEndLine(line,maze, rows - 1);
 }
 
-void Generator::AddVerticalWalls(std::vector<int>& line, const size_t row) {
+void Generator::AddVerticalWalls(std::vector<int>& line, Maze& maze, const size_t row) {
   for (size_t i = 0; i < line.size() - 1; ++i) {
     int choice = rand() % 2;
     if (line[i] == line[i + 1] || choice == 1) {
-        SetBit(maze_[row][i], kRight);
+        SetBit(maze[row][i], kRight);
     } else {
       const int element = line[i + 1];
       for (size_t j = 0; j < line.size(); ++j) {
@@ -38,34 +36,34 @@ void Generator::AddVerticalWalls(std::vector<int>& line, const size_t row) {
       }
     }
   }
-  SetBit(maze_[row][line.size() - 1], kRight);
+  SetBit(maze[row][line.size() - 1], kRight);
 }
 
-void Generator::AddHorizontalWalls(std::vector<int>& line, const size_t row) {
+void Generator::AddHorizontalWalls(std::vector<int>& line, Maze& maze, const size_t row) {
   for (size_t i = 0; i < line.size(); ++i) {
     int choice = rand() % 2;
     if (choice == 1) {
       const int element = line[i];
       int count_elements = 0;
       for (size_t j = 0; j < line.size(); ++j) {
-        if (line[j] == element && !CheckBit(maze_[row][j], kBottom))
+        if (line[j] == element && !CheckBit(maze[row][j], kBottom))
           count_elements++;
       }
-      if (count_elements > 1) SetBit(maze_[row][i], kBottom);
+      if (count_elements > 1) SetBit(maze[row][i], kBottom);
     }
   }
 }
 
-void Generator::PrepareNewLine(std::vector<int>& line, const size_t row, int& set_num) {
+void Generator::PrepareNewLine(std::vector<int>& line, Maze& maze, const size_t row, int& set_num) {
   for (size_t i = 0; i < line.size(); ++i) {
-    if (CheckBit(maze_[row][i], kBottom)) line[i] = set_num++;
+    if (CheckBit(maze[row][i], kBottom)) line[i] = set_num++;
   }
 }
 
-void Generator::CheckEndLine(std::vector<int>& line, const size_t row) {
+void Generator::CheckEndLine(std::vector<int>& line, Maze& maze, const size_t row) {
   for (size_t i = 0; i < line.size() - 1; ++i) {
-    if (line[i] != line[i + 1] && CheckBit(maze_[row][i], kRight)) {
-        ClearBit(maze_[row][i], kRight);
+    if (line[i] != line[i + 1] && CheckBit(maze[row][i], kRight)) {
+        ClearBit(maze[row][i], kRight);
       const int element = line[i + 1];
       for (size_t j = 0; j < line.size(); ++j) {
         if (line[j] == element) line[j] = line[i];

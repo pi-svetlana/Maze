@@ -2,7 +2,6 @@
 #define MAZE_READER_H
 
 #include <fstream>
-#include <regex>
 
 #include "../utils/utils.h"
 
@@ -11,12 +10,10 @@ class Reader {
  public:
   Reader() {}
   ~Reader() {}
-  void ReadFile(const std::string &file_path);
-  ps::Maze& GetData();
+  void ReadFile(const std::string &file_path, Maze& maze);
 
  private:
-  ps::Maze maze_;
-  void ReadMatrix(std::ifstream &stream,  ps::Blocks type);
+  void ReadMatrix(std::ifstream &stream,  Maze& maze, Blocks type);
 };
 }  // namespace ps
 

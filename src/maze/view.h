@@ -15,7 +15,7 @@ public:
     void setBgColor(QColor);
     void setWallColor(QColor);
     void setPathColor(QColor);
-//    void setRightWalls(std::vector<std::vector<int>>);
+    void setMaze(std::vector<std::vector<int>>);
 //    void setBottomWalls(std::vector<std::vector<int>>);
 signals:
 
@@ -26,7 +26,7 @@ private:
     QColor wall_color_ = Qt::black;
     QColor path_color_ = Qt::red;
 
-    ps::controller controller_;
+//    ps::Controller controller_;
     ps::Maze maze_;
 //    std::vector<std::vector<int>> right_walls_{};
 //    std::vector<std::vector<int>> bottom_walls_{};

@@ -2,18 +2,21 @@
 #define MAZE_CONTROLLER_H
 
 #include <iostream>
+#include "../model/maze_model.h"
 
 namespace ps {
 
-    class controller {
+    class Controller {
     public:
-        void OpenFile(std::string file_path);
-        void CreateFile();
-        void GeneratePerfectMaze(const int rows, const int cols);
+        Controller(MazeModel* model) : maze_model_(model){}
+        ~Controller() {}
+        Maze& OpenFile(const std::string& file_path);
+        void CreateFile(const std::string& file_path);
+        Maze& GeneratePerfectMaze(const size_t rows, const size_t cols);
         void SearchShortestPath();
 
     private:
-//        MazeModel maze_model_;
+        MazeModel* maze_model_;
     };
 
 } // ps

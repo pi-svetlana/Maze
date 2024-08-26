@@ -14,6 +14,14 @@ namespace ps {
     bool CheckBit(const int &element, const Blocks type) {
         return ((element >> type) & 1) == 1;
     }
+
+    void ClearPath(Maze &maze) {
+        for (auto &row : maze) {
+            for (int &elem : row) {
+                ClearBit(elem, kPath);
+            }
+        }
+    }
 } // ps
 
 //int main() {

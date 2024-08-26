@@ -1,13 +1,16 @@
 #include <QColorDialog>
+#include <QFileDialog>
+#include <QMessageBox>
 
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include "../core/utils/utils.h"
 #include "../core/model/generator.h"
+#include "../core/controller/controller.h"
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(ps::Controller* c, QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    , ui(new Ui::MainWindow), controller_(c)
 {
     ui->setupUi(this);
 }
@@ -59,12 +62,39 @@ void MainWindow::on_path_color_btn_clicked()
 
 void MainWindow::on_generate_btn_clicked()
 {
-//    ps::Generator gen;
-//    size_t rows = ui->rows->value();
-//    size_t cols = ui->cols->value();
-//    ps::Maze* res = gen.GenerateMaze(rows, cols);
-//    ui->maze_window->setRightWalls(res->vertical_walls);
-//    ui->maze_window->setBottomWalls(res->horizontal_walls);
-//    ui->maze_window->update();
+
+    size_t rows = ui->rows->value();
+    size_t cols = ui->cols->value();
+    ui->maze_window->setMaze(controller_->GeneratePerfectMaze(rows, cols));
+    ui->maze_window->update();
+}
+
+
+void MainWindow::on_open_file_btn_clicked()
+{
+    QString file = QFileDialog::getOpenFileName(
+        this, "Выбрать файл", QDir::homePath(), "Txt files (*.txt)");
+    if (!file.isEmpty()) {
+        std::string file_name = file.toUtf8().toStdString();
+        try {
+            ui->maze_window->setMaze(controller_->OpenFile(file_name));
+            ui->maze_window->update();
+        } catch (std::exception &e) {
+            QMessageBox::warning(this, "Ошибка!", e.what());
+        }
+    }
+}
+
+
+void MainWindow::on_save_file_btn_clicked()
+{
+    QString initial_path = QDir::homePath() + "/Downloads";
+    QString file = QFileDialog::getSaveFileName(this, "Сохранить файл", initial_path + "/file.txt",
+          "Text files (*.txt)");
+    try{
+        controller_->CreateFile(file.toUtf8().toStdString());
+    } catch (std::exception &e) {
+        QMessageBox::warning(this, "Ошибка!", e.what());
+    }
 }
 

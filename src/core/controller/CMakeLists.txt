@@ -5,4 +5,10 @@ add_library(${target}
         controller.cc
         controller.h
 )
+
+target_link_libraries(${target}
+        PRIVATE
+        model
+)
+
 include_directories(.)
