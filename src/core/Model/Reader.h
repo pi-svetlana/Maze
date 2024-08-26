@@ -9,13 +9,14 @@
 namespace ps {
 class Reader {
  public:
-  explicit Reader(Maze &maze) : maze_(maze){}
+  Reader() {}
   ~Reader() {}
   void ReadFile(const std::string &file_path);
+  ps::Maze& GetData();
 
  private:
-  Maze maze_;
-  void ReadMatrix(std::ifstream &stream,  Blocks type);
+  ps::Maze maze_;
+  void ReadMatrix(std::ifstream &stream,  ps::Blocks type);
 };
 }  // namespace ps
 

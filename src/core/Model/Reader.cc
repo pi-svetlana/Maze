@@ -12,36 +12,24 @@ void Reader::ReadFile(const std::string &file_path) {
     throw std::runtime_error("Invalid file");
   maze_.resize(rows, std::vector<int>(cols, 0));
 
-//  maze_->vertical_walls.resize(rows, std::vector<int>(cols, 0));
-//  maze_->horizontal_walls.resize(rows, std::vector<int>(cols, 0));
   ReadMatrix(stream, kRight);
   ReadMatrix(stream, kBottom);
   if (stream >> ch) throw std::runtime_error("Invalid file");
 }
 
 void Reader::ReadMatrix(std::ifstream &stream, Blocks type) {
-    for (auto &row : maze_) {
-        for (int &elem : row) {
-            if(!(stream >> elem && (elem == 1 || elem == 0)))
+    int tmp = 0;
+    for(auto& row : maze_) {
+        for (int& elem : row) {
+            if(!(stream >> tmp && (tmp == 1 || tmp == 0)))
                 throw std::runtime_error("Invalid file");
-            if (elem == 1) SetBit(elem, type);
+            if (tmp == 1) SetBit(elem, type);
         }
     }
+}
 
-//  for (auto & i : matrix) {
-//    for (int & j : i) {
-//      if (!(stream >> j && (j == 1 || j == 0)))
-//        throw std::runtime_error("Invalid file");
-//      if (j == 1) setBit(j, type);
-//    }
-//  }
+Maze& Reader::GetData() {
+    return maze_;
 }
 
 }  // namespace ps
-
-//int main() {
-//    ps::Maze maze;
-//    ps::Reader reader(maze);
-//    reader.ReadFile("matrix.txt");
-//    std::cout << "ok\n";
-//}
