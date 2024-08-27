@@ -8,6 +8,8 @@ add_library(${target}
         reader.h
         writer.cc
         writer.h
+        searcher.cc
+        searcher.h
         maze_model.cc
         maze_model.h
 )

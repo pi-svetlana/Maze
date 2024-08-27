@@ -19,16 +19,14 @@ public:
 
 private slots:
     void on_bg_color_btn_clicked();
-
     void on_wall_color_btn_clicked();
-
     void on_path_color_btn_clicked();
-
     void on_generate_btn_clicked();
-
     void on_open_file_btn_clicked();
-
     void on_save_file_btn_clicked();
+    void on_solve_btn_clicked();
+    void on_choose_start_clicked();
+    void on_choose_finish_clicked();
 
 private:
     Ui::MainWindow *ui;

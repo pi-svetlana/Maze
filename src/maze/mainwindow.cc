@@ -1,6 +1,7 @@
 #include <QColorDialog>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QMouseEvent>
 
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
@@ -96,5 +97,23 @@ void MainWindow::on_save_file_btn_clicked()
     } catch (std::exception &e) {
         QMessageBox::warning(this, "Ошибка!", e.what());
     }
+}
+
+
+void MainWindow::on_solve_btn_clicked()
+{
+
+}
+
+
+void MainWindow::on_choose_start_clicked()
+{
+
+}
+
+
+void MainWindow::on_choose_finish_clicked()
+{
+
 }
 
