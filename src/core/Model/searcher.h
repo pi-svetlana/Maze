@@ -6,7 +6,7 @@
 namespace ps {
 class Searcher {
  public:
-  void FindPath(Maze& maze, int start, int finish);
+  void FindPath(Maze& maze, int start_x, int start_y, int finish_x, int finish_y);
 
  private:
     void CreateAdjacencyList(const Maze& maze, Maze& adjacency_list);

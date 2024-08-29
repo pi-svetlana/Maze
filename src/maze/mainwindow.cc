@@ -1,7 +1,6 @@
 #include <QColorDialog>
 #include <QFileDialog>
 #include <QMessageBox>
-#include <QMouseEvent>
 
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
@@ -63,7 +62,7 @@ void MainWindow::on_path_color_btn_clicked()
 
 void MainWindow::on_generate_btn_clicked()
 {
-
+// удалить точки
     size_t rows = ui->rows->value();
     size_t cols = ui->cols->value();
     ui->maze_window->setMaze(controller_->GeneratePerfectMaze(rows, cols));
@@ -73,6 +72,7 @@ void MainWindow::on_generate_btn_clicked()
 
 void MainWindow::on_open_file_btn_clicked()
 {
+    //удалить точки
     QString file = QFileDialog::getOpenFileName(
         this, "Выбрать файл", QDir::homePath(), "Txt files (*.txt)");
     if (!file.isEmpty()) {
@@ -89,6 +89,7 @@ void MainWindow::on_open_file_btn_clicked()
 
 void MainWindow::on_save_file_btn_clicked()
 {
+    // удалить точки и очистить путь
     QString initial_path = QDir::homePath() + "/Downloads";
     QString file = QFileDialog::getSaveFileName(this, "Сохранить файл", initial_path + "/file.txt",
           "Text files (*.txt)");
@@ -102,18 +103,28 @@ void MainWindow::on_save_file_btn_clicked()
 
 void MainWindow::on_solve_btn_clicked()
 {
-
+    // еслт точки выбраны - проверить!!!
+    int start_x = ui->maze_window->getStartX();
+    int start_y = ui->maze_window->getStartY();
+    int finish_x = ui->maze_window->getFinishX();
+    int finish_y = ui->maze_window->getFinishY();
+    try{
+        ui->maze_window->setMaze(controller_->SearchShortestPath(start_x, start_y, finish_x, finish_y));
+        ui->maze_window->update();
+    } catch (std::exception &e) {
+        QMessageBox::warning(this, "Ошибка!", e.what());
+    }
 }
 
 
 void MainWindow::on_choose_start_clicked()
 {
-
+    ui->maze_window->setDrawMode(ui->maze_window->kStart);
 }
 
 
 void MainWindow::on_choose_finish_clicked()
 {
-
+    ui->maze_window->setDrawMode(ui->maze_window->kFinish);
 }
 

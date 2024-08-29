@@ -19,8 +19,6 @@ set(PROJECT_SOURCES
         mainwindow.cc
         mainwindow.h
         mainwindow.ui
-#        ../core/model/generator.h
-#        ../core/model/generator.cc
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

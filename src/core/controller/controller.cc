@@ -15,8 +15,9 @@ namespace ps {
         return maze_model_->GetMaze();
     }
 
-    void Controller::SearchShortestPath() {
-
+    Maze& Controller::SearchShortestPath(const int start_x, const int start_y, const int finish_x, const int finish_y) {
+        maze_model_->SearchShortestPath(start_x, start_y, finish_x, finish_y);
+        return maze_model_->GetMaze();
     }
 
 } // ps
@@ -25,7 +26,7 @@ namespace ps {
 //    ps::Maze maze;
 //    ps::Reader reader;
 //    ps::Controller controller;
-//    reader.ReadFile("matrix.txt");
+//    reader.ReadFile("maze_4x4.txt");
 //    maze = reader.GetData();
 //    for(auto& row : maze) {
 //        for (int& elem : row) {

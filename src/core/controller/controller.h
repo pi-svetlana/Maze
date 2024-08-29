@@ -13,7 +13,7 @@ namespace ps {
         Maze& OpenFile(const std::string& file_path);
         void CreateFile(const std::string& file_path);
         Maze& GeneratePerfectMaze(const size_t rows, const size_t cols);
-        void SearchShortestPath();
+        Maze& SearchShortestPath(int start_x, int start_y, int finish_x, int finish_y);
 
     private:
         MazeModel* maze_model_;

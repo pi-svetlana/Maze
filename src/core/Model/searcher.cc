@@ -1,35 +1,39 @@
 #include "searcher.h"
 
-#include <iostream>
 #include <queue>
 
 namespace ps {
 
-void Searcher::FindPath(Maze& maze, const int start, const int finish) {
-  Maze adjacency_list;
-  CreateAdjacencyList(maze, adjacency_list);
-    std::cout << "Matrix done\n";
-  std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<>> pq;
-  std::vector<int> distances(adjacency_list.size(), std::numeric_limits<int>::max());
-  std::vector<int> prev_top(adjacency_list.size(), std::numeric_limits<int>::min());
-    distances[start] = 0;
-    prev_top[start] = -1;
-    pq.emplace(0, start);
-    while(!pq.empty()) {
-        int cur_distance = pq.top().first;
-        int cur_node = pq.top().second;
-        pq.pop();
-        if(cur_distance > distances[cur_node]) continue;
-        for(const int& elem : adjacency_list[cur_node]) {
-            int new_distance = cur_distance + 1;
-            if (new_distance < distances[elem]) {
-                distances[elem] = new_distance;
-                prev_top[elem] = cur_node;
-                pq.emplace(new_distance, elem);
-            }
-        }
-    }
-    AddPathToMaze(maze, prev_top, start, finish);
+void Searcher::FindPath(Maze& maze, const int start_x, const int start_y, const int finish_x, const int finish_y) {
+  if (!maze.empty()) {
+      int start = start_y * maze[0].size() + start_x;
+      int finish = finish_y * maze[0].size() + finish_x;
+      Maze adjacency_list;
+      CreateAdjacencyList(maze, adjacency_list);
+      std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<>> pq;
+      std::vector<int> distances(adjacency_list.size(), std::numeric_limits<int>::max());
+      std::vector<int> prev_top(adjacency_list.size(), std::numeric_limits<int>::min());
+      distances[start] = 0;
+      prev_top[start] = -1;
+      pq.emplace(0, start);
+      while (!pq.empty()) {
+          int cur_distance = pq.top().first;
+          int cur_node = pq.top().second;
+          pq.pop();
+          if (cur_distance > distances[cur_node]) continue;
+          for (const int &elem: adjacency_list[cur_node]) {
+              int new_distance = cur_distance + 1;
+              if (new_distance < distances[elem]) {
+                  distances[elem] = new_distance;
+                  prev_top[elem] = cur_node;
+                  pq.emplace(new_distance, elem);
+              }
+          }
+      }
+      if(distances[finish] ==std::numeric_limits<int>::max())
+          throw std::runtime_error("Решения нет!");
+      AddPathToMaze(maze, prev_top, start, finish);
+  }
 }
 
 void Searcher::CreateAdjacencyList(const Maze& maze, Maze& adjacency_list) {
@@ -61,7 +65,7 @@ void Searcher::AddPathToMaze(Maze& maze, const std::vector<int>& prev_top, const
         path.push_back(i);
     }
     for(const int& elem : path) {
-        SetBit(maze[elem/cols][elem%cols], kPath);
+        SetBit(maze[elem / cols][elem % cols], kPath);
     }
 //    for(const int& elem : path) std::cout << elem << " ";
 //    for (const auto& row : maze) {
@@ -74,9 +78,3 @@ void Searcher::AddPathToMaze(Maze& maze, const std::vector<int>& prev_top, const
 
 }  // namespace ps
 
-
-int main() {
-    ps::Maze maze = {{2,0,2,1}, {1,0,3,1}, {2,3,0,3}, {2,2,2,3}};
-    ps::Searcher search;
-    search.FindPath(maze, 0, 15);
-}

@@ -13,8 +13,8 @@ namespace ps {
         generator_.GenerateMaze(maze_, rows, cols);
     }
 
-    void MazeModel::SearchShortestPath() {
-
+    void MazeModel::SearchShortestPath(const int start_x, const int start_y, const int finish_x, const int finish_y) {
+        searcher_.FindPath(maze_, start_x, start_y, finish_x, finish_y);
     }
 
     Maze& MazeModel::GetMaze() {
