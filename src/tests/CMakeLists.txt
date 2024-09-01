@@ -8,6 +8,7 @@ target_link_libraries(${target}
         PRIVATE
         model
         controller
+        utils
         GTest::gtest_main)
 
 include(GoogleTest)

@@ -17,6 +17,10 @@ namespace ps {
         searcher_.FindPath(maze_, start_x, start_y, finish_x, finish_y);
     }
 
+    void MazeModel::ClearPathInMaze() {
+        ClearPath(maze_);
+    }
+
     Maze& MazeModel::GetMaze() {
         return maze_;
     }

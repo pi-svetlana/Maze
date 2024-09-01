@@ -2,7 +2,8 @@
 #define MAZE_CONTROLLER_H
 
 #include <iostream>
-#include "../model/maze_model.h"
+//#include "../model/m
+#include <model/maze_model.h>
 
 namespace ps {
 
@@ -14,6 +15,7 @@ namespace ps {
         void CreateFile(const std::string& file_path);
         Maze& GeneratePerfectMaze(const size_t rows, const size_t cols);
         Maze& SearchShortestPath(int start_x, int start_y, int finish_x, int finish_y);
+        Maze& ClearPath();
 
     private:
         MazeModel* maze_model_;

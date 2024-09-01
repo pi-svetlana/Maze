@@ -10,7 +10,7 @@ void Reader::ReadFile(const std::string &file_path, Maze& maze) {
   size_t rows, cols;
   char ch;
   if (!(stream >> rows >> cols) || rows < 2 || cols < 2)
-    throw std::runtime_error("Invalid file");
+    throw std::runtime_error("Не удалось открыть файл");
   maze.resize(rows, std::vector<int>(cols, 0));
   ReadMatrix(stream, maze, kRight);
   ReadMatrix(stream, maze, kBottom);

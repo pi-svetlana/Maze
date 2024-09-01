@@ -4,6 +4,8 @@
 
 namespace ps {
     typedef std::vector<std::vector<int> > Maze;
+    const int max_maze_size = 50;
+    const int min_maze_size = 2;
     enum Blocks { kRight, kBottom, kPath };
     void SetBit(int &element, Blocks type);
     void ClearBit(int &element, Blocks type);

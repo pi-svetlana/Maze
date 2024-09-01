@@ -3,6 +3,8 @@
 namespace ps {
 void Generator::GenerateMaze(Maze& maze, size_t rows, size_t cols) {
   maze.clear();
+  if (rows > max_maze_size || cols > max_maze_size || rows < min_maze_size || cols < min_maze_size)
+      throw std::runtime_error("Недопустимые размеры лабиринта");
   maze.resize(rows, std::vector<int>(cols, 0));
   int set_num = 1;
   std::vector<int> line;

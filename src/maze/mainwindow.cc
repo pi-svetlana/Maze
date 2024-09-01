@@ -62,7 +62,7 @@ void MainWindow::on_path_color_btn_clicked()
 
 void MainWindow::on_generate_btn_clicked()
 {
-// удалить точки
+    delete_points();
     size_t rows = ui->rows->value();
     size_t cols = ui->cols->value();
     ui->maze_window->setMaze(controller_->GeneratePerfectMaze(rows, cols));
@@ -72,7 +72,7 @@ void MainWindow::on_generate_btn_clicked()
 
 void MainWindow::on_open_file_btn_clicked()
 {
-    //удалить точки
+    delete_points();
     QString file = QFileDialog::getOpenFileName(
         this, "Выбрать файл", QDir::homePath(), "Txt files (*.txt)");
     if (!file.isEmpty()) {
@@ -89,10 +89,16 @@ void MainWindow::on_open_file_btn_clicked()
 
 void MainWindow::on_save_file_btn_clicked()
 {
-    // удалить точки и очистить путь
+    if(ui->maze_window->getMaze().empty()) {
+        QMessageBox::warning(this, "Ошибка!", "Нужно сначала сгенерировать лабиринт!");
+        return;
+    }
     QString initial_path = QDir::homePath() + "/Downloads";
     QString file = QFileDialog::getSaveFileName(this, "Сохранить файл", initial_path + "/file.txt",
           "Text files (*.txt)");
+    if (file.isEmpty()) {
+            return;
+        }
     try{
         controller_->CreateFile(file.toUtf8().toStdString());
     } catch (std::exception &e) {
@@ -103,7 +109,14 @@ void MainWindow::on_save_file_btn_clicked()
 
 void MainWindow::on_solve_btn_clicked()
 {
-    // еслт точки выбраны - проверить!!!
+    if(!ui->maze_window->getStartSelected()) {
+        QMessageBox::warning(this, "Ошибка!", "Нужно выбрать начальную точку!");
+        return;
+    }
+    if(!ui->maze_window->getFinishSelected()) {
+        QMessageBox::warning(this, "Ошибка!", "Нужно выбрать конечную точку!");
+        return;
+    }
     int start_x = ui->maze_window->getStartX();
     int start_y = ui->maze_window->getStartY();
     int finish_x = ui->maze_window->getFinishX();
@@ -119,12 +132,30 @@ void MainWindow::on_solve_btn_clicked()
 
 void MainWindow::on_choose_start_clicked()
 {
+    ui->maze_window->setMaze(controller_->ClearPath());
+    ui->maze_window->setStartSelected(false);
+    ui->maze_window->update();
     ui->maze_window->setDrawMode(ui->maze_window->kStart);
 }
 
 
 void MainWindow::on_choose_finish_clicked()
 {
+    ui->maze_window->setMaze(controller_->ClearPath());
+    ui->maze_window->setFinishSelected(false);
+    ui->maze_window->update();
     ui->maze_window->setDrawMode(ui->maze_window->kFinish);
 }
+
+void MainWindow::delete_points()
+{
+    ui->maze_window->setStartSelected(false);
+    ui->maze_window->setFinishSelected(false);
+}
+
+//void MainWindow::on_tabWidget_currentChanged(int index)
+//{
+//    if(index == 0) ui->maze_window->setPainterMode(ui->maze_window->kMaze);
+//    if(index == 1) ui->maze_window->setPainterMode(ui->maze_window->kCave);
+//}
 

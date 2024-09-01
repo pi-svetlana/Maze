@@ -27,6 +27,9 @@ private slots:
     void on_solve_btn_clicked();
     void on_choose_start_clicked();
     void on_choose_finish_clicked();
+    void delete_points();
+
+//    void on_tabWidget_currentChanged(int index);
 
 private:
     Ui::MainWindow *ui;

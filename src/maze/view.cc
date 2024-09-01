@@ -14,10 +14,10 @@ void View::paintEvent(QPaintEvent* event) {
     painter.setBrush(brush);
     painter.drawRect(rect());
 
-
     if (!maze_.empty()) {
     float cell_width = (float)width() / maze_[0].size();
     float cell_height = (float)height() / maze_.size();
+    painter.setPen(QPen(wall_color_, 2));
     painter.drawLine(1, 1, 1, height());
     painter.drawLine(1, 1, width(), 1);
     painter.drawLine(width() - 1, 1, width() - 1, height());
@@ -44,26 +44,24 @@ void View::paintEvent(QPaintEvent* event) {
             }
         }
     }
-    if(start_selected_) { // вынести в отдельную функцию
-        painter.setBrush(path_color_);
-        painter.setPen(Qt::NoPen);
-        float center_x = start_x_ * cell_width + cell_width / 2;
-        float center_y = start_y_ * cell_height + cell_height / 2;
-        int radius = cell_width > cell_height ? 0.25 * cell_height : 0.25 * cell_width;
-        QPointF center = {center_x, center_y};
-        painter.drawEllipse(center, radius, radius);
+    if(start_selected_) {
+        drawPoint(start_x_, start_y_, cell_width, cell_height, painter);
     }
+    if(finish_selected_) {
+        drawPoint(finish_x_, finish_y_, cell_width, cell_height, painter);
+    }
+    }
+}
 
-    if(finish_selected_) { // вынести в отдельную функцию
-        painter.setBrush(path_color_);
-        painter.setPen(Qt::NoPen);
-        float center_x = finish_x_ * cell_width + cell_width / 2;
-        float center_y = finish_y_ * cell_height + cell_height / 2;
-        int radius = cell_width > cell_height ? 0.25 * cell_height : 0.25 * cell_width;
-        QPointF center = {center_x, center_y};
-        painter.drawEllipse(center, radius, radius);
-    }
-    }
+void View::drawPoint(const int& x, const int& y, const float& cell_width, const float& cell_height, QPainter& painter)
+{
+    painter.setBrush(path_color_);
+    painter.setPen(Qt::NoPen);
+    float center_x = x * cell_width + cell_width / 2;
+    float center_y = y * cell_height + cell_height / 2;
+    int radius = cell_width > cell_height ? 0.25 * cell_height : 0.25 * cell_width;
+    QPointF center = {center_x, center_y};
+    painter.drawEllipse(center, radius, radius);
 }
 
 void View::setDrawMode(DrawMode mode) {
@@ -76,6 +74,14 @@ void View::setStartSelected(bool enable) {
 
 void View::setFinishSelected(bool enable) {
     finish_selected_ = enable;
+}
+
+bool View::getStartSelected() {
+    return start_selected_;
+}
+
+bool View::getFinishSelected() {
+    return finish_selected_;
 }
 
 void View::mousePressEvent(QMouseEvent *event) {
@@ -102,8 +108,8 @@ void View::setWallColor(QColor color) { wall_color_ = color; }
 void View::setPathColor(QColor color) { path_color_ = color; }
 void View::setMaze(std::vector<std::vector<int>> maze) { maze_ = maze; }
 
+ps::Maze& View::getMaze() { return maze_; }
 int View::getStartX() const { return start_x_; }
 int View::getStartY() const { return start_y_; }
 int View::getFinishX() const { return finish_x_; }
 int View::getFinishY() const { return finish_y_; }
-

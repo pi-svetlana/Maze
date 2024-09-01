@@ -1,7 +1,8 @@
 #ifndef MAZE_MAZE_MODEL_H
 #define MAZE_MAZE_MODEL_H
 
-#include "../utils/utils.h"
+//#include "../utils/utils.h"
+
 #include "generator.h"
 #include "reader.h"
 #include "writer.h"
@@ -18,6 +19,7 @@ namespace ps {
         void CreateFile(const std::string& file_path);
         void GeneratePerfectMaze(size_t rows, size_t cols);
         void SearchShortestPath(int start_x, int start_y, int finish_x, int finish_y);
+        void ClearPathInMaze();
         Maze& GetMaze();
 
     private:

@@ -50,6 +50,8 @@ model
 controller
 )
 
+target_include_directories(maze PRIVATE ../core)
+
 set_target_properties(maze PROPERTIES
     MACOSX_BUNDLE_maze_IDENTIFIER my.example.com
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}

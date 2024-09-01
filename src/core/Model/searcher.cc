@@ -8,6 +8,10 @@ void Searcher::FindPath(Maze& maze, const int start_x, const int start_y, const 
   if (!maze.empty()) {
       int start = start_y * maze[0].size() + start_x;
       int finish = finish_y * maze[0].size() + finish_x;
+      int max_idx = maze[0].size() * maze.size() - 1;
+      if (start > max_idx || finish > max_idx || start < 0 || finish < 0) {
+          throw std::runtime_error("Начальная или конечная точка находится за пределами лабиринта");
+      }
       Maze adjacency_list;
       CreateAdjacencyList(maze, adjacency_list);
       std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<>> pq;
@@ -32,7 +36,7 @@ void Searcher::FindPath(Maze& maze, const int start_x, const int start_y, const 
       }
       if(distances[finish] ==std::numeric_limits<int>::max())
           throw std::runtime_error("Решения нет!");
-      AddPathToMaze(maze, prev_top, start, finish);
+      AddPathToMaze(maze, prev_top, finish);
   }
 }
 
@@ -57,9 +61,8 @@ void Searcher::CreateAdjacencyList(const Maze& maze, Maze& adjacency_list) {
   }
 }
 
-void Searcher::AddPathToMaze(Maze& maze, const std::vector<int>& prev_top, const int start, const int finish) {
+void Searcher::AddPathToMaze(Maze& maze, const std::vector<int>& prev_top, const int finish) {
     std::vector<int> path;
-    size_t rows = maze.size();
     size_t cols = maze[0].size();
     for (int i = finish; i != -1; i = prev_top[i]) {
         path.push_back(i);
@@ -67,13 +70,6 @@ void Searcher::AddPathToMaze(Maze& maze, const std::vector<int>& prev_top, const
     for(const int& elem : path) {
         SetBit(maze[elem / cols][elem % cols], kPath);
     }
-//    for(const int& elem : path) std::cout << elem << " ";
-//    for (const auto& row : maze) {
-//        for (const int& elem : row) {
-//            std::cout << elem << " ";
-//        }
-//        std::cout << "\n";
-//    }
 }
 
 }  // namespace ps

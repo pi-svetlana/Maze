@@ -20,3 +20,4 @@ target_link_libraries(${target}
 )
 
 include_directories(.)
+target_include_directories(${target} PRIVATE ..)

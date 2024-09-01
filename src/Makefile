@@ -15,4 +15,9 @@ tests:
 	cd build/tests ; ./tests
 
 clean:
-	rm -rf *user */*/*.gch
+	rm -rf *user */*/*.gch report
+
+gcov_report: tests
+	mkdir -p report
+	gcovr -r . --html-details -o ./report/gcov_report.html -f core/model/searcher.cc -f core/model/generator.cc
+	open ./report/gcov_report.html

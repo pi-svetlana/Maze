@@ -2,6 +2,7 @@
 #define MAZE_SEARCHER_H
 
 #include "../utils/utils.h"
+//#include <utils/utils.h>
 
 namespace ps {
 class Searcher {
@@ -10,7 +11,7 @@ class Searcher {
 
  private:
     void CreateAdjacencyList(const Maze& maze, Maze& adjacency_list);
-    void AddPathToMaze(Maze& maze, const std::vector<int>& prev_top, int start, int finish);
+    void AddPathToMaze(Maze& maze, const std::vector<int>& prev_top, int finish);
 };
 
 }  // namespace ps

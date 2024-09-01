@@ -20,6 +20,11 @@ namespace ps {
         return maze_model_->GetMaze();
     }
 
+    Maze& Controller::ClearPath() {
+        maze_model_->ClearPathInMaze();
+        return maze_model_->GetMaze();
+    }
+
 } // ps
 
 //int main() {
