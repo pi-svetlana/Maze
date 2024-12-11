@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
 #define private public
-#include "../core/model/maze_model.h"
+#include "../core/model/maze_model/maze_model.h"
 #undef private
 
 namespace ps {

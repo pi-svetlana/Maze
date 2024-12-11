@@ -3,6 +3,10 @@
 #include <vector>
 
 namespace ps {
+    typedef std::vector<std::vector<int> > Cave;
+    const int max_cave_size = 50;
+    const int min_cave_size = 2;
+
     typedef std::vector<std::vector<int> > Maze;
     const int max_maze_size = 50;
     const int min_maze_size = 2;

@@ -5,7 +5,7 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include "../core/utils/utils.h"
-#include "../core/model/generator.h"
+#include "../core/model/maze_model/generator.h"
 #include "../core/controller/controller.h"
 
 MainWindow::MainWindow(ps::Controller* c, QWidget *parent)
@@ -158,4 +158,76 @@ void MainWindow::delete_points()
 //    if(index == 0) ui->maze_window->setPainterMode(ui->maze_window->kMaze);
 //    if(index == 1) ui->maze_window->setPainterMode(ui->maze_window->kCave);
 //}
+
+
+void MainWindow::on_generate_cave_btn_clicked()
+{
+    size_t cave_rows = ui->cave_rows->value();
+    size_t cave_cols = ui->cave_cols->value();
+    size_t chance = ui->chance->value();
+    ui->cave_window->setCave(controller_->GenerateCave(cave_rows, cave_cols, chance));
+    ui->cave_window->update();
+}
+
+
+void MainWindow::on_open_cave_btn_clicked()
+{
+    QString file = QFileDialog::getOpenFileName(
+        this, "Выбрать файл", QDir::homePath(), "Txt files (*.txt)");
+    if (!file.isEmpty()) {
+        std::string file_name = file.toUtf8().toStdString();
+        try {
+            ui->cave_window->setCave(controller_->OpenCave(file_name));
+            ui->cave_window->update();
+        } catch (std::exception &e) {
+            QMessageBox::warning(this, "Ошибка!", e.what());
+        }
+    }
+}
+
+
+void MainWindow::on_save_cave_btn_clicked()
+{
+    if(ui->cave_window->getCave().empty()) {
+        QMessageBox::warning(this, "Ошибка!", "Нужно сначала сгенерировать пещеру!");
+        return;
+    }
+    QString initial_path = QDir::homePath() + "/Downloads";
+    QString file = QFileDialog::getSaveFileName(this, "Сохранить файл", initial_path + "/file.txt",
+          "Text files (*.txt)");
+    if (file.isEmpty()) {
+            return;
+        }
+    try{
+        controller_->CreateCaveFile(file.toUtf8().toStdString());
+    } catch (std::exception &e) {
+        QMessageBox::warning(this, "Ошибка!", e.what());
+    }
+}
+
+
+void MainWindow::on_cave_bg_color_btn_clicked()
+{
+    QColor new_bg_color = QColorDialog::getColor(Qt::white, this);
+      if (new_bg_color.isValid()) {
+        ui->cave_window->setBgColor(new_bg_color);
+        ui->cave_window->update();
+
+        QString color = QString("background-color: %1;").arg(new_bg_color.name());
+        ui->cave_bg_color->setStyleSheet(color);
+      }
+}
+
+
+void MainWindow::on_cave_wall_color_btn_clicked()
+{
+    QColor new_wall_color = QColorDialog::getColor(Qt::white, this);
+      if (new_wall_color.isValid()) {
+        ui->cave_window->setWallColor(new_wall_color);
+        ui->cave_window->update();
+
+        QString color = QString("background-color: %1;").arg(new_wall_color.name());
+        ui->cave_wall_color->setStyleSheet(color);
+      }
+}
 

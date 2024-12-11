@@ -25,6 +25,21 @@ namespace ps {
         return maze_model_->GetMaze();
     }
 
+
+    Cave& Controller::GenerateCave(const size_t rows, const size_t cols, const size_t chance) {
+        cave_model_->GenerateCave(rows, cols, chance);
+        return cave_model_->GetCave();
+    }
+
+    Cave& Controller::OpenCave(const std::string& file_path) {
+        cave_model_->OpenFile(file_path);
+        return cave_model_->GetCave();
+    }
+
+    void Controller::CreateCaveFile(const std::string& file_path) {
+        cave_model_->CreateFile(file_path);
+    }
+
 } // ps
 
 //int main() {

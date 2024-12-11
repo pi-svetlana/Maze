@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>881</width>
-    <height>615</height>
+    <width>882</width>
+    <height>634</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -30,7 +30,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="maze">
        <attribute name="title">
@@ -449,7 +449,7 @@
                  <widget class="QLabel" name="label_7">
                   <property name="text">
                    <string>Шанс на начальную
-инициализацию:</string>
+инициализацию, %:</string>
                   </property>
                  </widget>
                 </item>
@@ -460,6 +460,15 @@
                     <width>0</width>
                     <height>30</height>
                    </size>
+                  </property>
+                  <property name="minimum">
+                   <number>0</number>
+                  </property>
+                  <property name="maximum">
+                   <number>100</number>
+                  </property>
+                  <property name="value">
+                   <number>30</number>
                   </property>
                  </widget>
                 </item>
@@ -688,7 +697,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QWidget" name="widget" native="true">
+               <widget class="QWidget" name="cave_bg_color" native="true">
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
@@ -714,7 +723,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QWidget" name="widget_2" native="true">
+               <widget class="QWidget" name="cave_wall_color" native="true">
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
@@ -745,7 +754,7 @@
            </layout>
           </item>
           <item>
-           <widget class="QWidget" name="widget_3" native="true">
+           <widget class="Cave" name="cave_window" native="true">
             <property name="minimumSize">
              <size>
               <width>500</width>
@@ -776,7 +785,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>881</width>
+     <width>882</width>
      <height>24</height>
     </rect>
    </property>
@@ -787,7 +796,13 @@
   <customwidget>
    <class>View</class>
    <extends>QWidget</extends>
-   <header location="global">view.h</header>
+   <header>view.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Cave</class>
+   <extends>QWidget</extends>
+   <header location="global">cave.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

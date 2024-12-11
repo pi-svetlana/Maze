@@ -1,7 +1,7 @@
 #ifndef MAZE_SEARCHER_H
 #define MAZE_SEARCHER_H
 
-#include "../utils/utils.h"
+#include "../../utils/utils.h"
 //#include <utils/utils.h>
 
 namespace ps {

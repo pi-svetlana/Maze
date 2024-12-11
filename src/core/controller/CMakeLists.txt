@@ -8,7 +8,8 @@ add_library(${target}
 
 target_link_libraries(${target}
         PRIVATE
-        model
+        maze_model
+        cave_model
 )
 
 include_directories(.)

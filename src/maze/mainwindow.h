@@ -31,6 +31,16 @@ private slots:
 
 //    void on_tabWidget_currentChanged(int index);
 
+    void on_generate_cave_btn_clicked();
+
+    void on_open_cave_btn_clicked();
+
+    void on_save_cave_btn_clicked();
+
+    void on_cave_bg_color_btn_clicked();
+
+    void on_cave_wall_color_btn_clicked();
+
 private:
     Ui::MainWindow *ui;
     ps::Controller* controller_;

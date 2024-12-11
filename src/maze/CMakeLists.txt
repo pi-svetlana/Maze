@@ -14,6 +14,8 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set(PROJECT_SOURCES
         main.cc
+        cave.cc
+        cave.h
         view.cc
         view.h
         mainwindow.cc
@@ -46,7 +48,7 @@ endif()
 
 target_link_libraries(maze PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
 utils
-model
+maze_model
 controller
 )
 

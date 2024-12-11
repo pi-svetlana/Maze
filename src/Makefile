@@ -5,6 +5,8 @@ build:
 
 rebuild: uninstall clean build
 
+install: build
+
 uninstall:
 	rm -rf build
 
