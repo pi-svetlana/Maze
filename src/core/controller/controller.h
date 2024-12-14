@@ -21,6 +21,8 @@ namespace ps {
         Cave& OpenCave(const std::string& file_path);
         void CreateCaveFile(const std::string& file_path);
 
+        Cave& CreateNextStep(const size_t birth_limit, const size_t death_limit, bool& change);
+
     private:
         MazeModel* maze_model_;
         CaveModel* cave_model_;

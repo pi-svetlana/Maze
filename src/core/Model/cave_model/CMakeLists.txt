@@ -10,6 +10,8 @@ add_library(${target}
         cave_reader.h
         cave_writer.cc
         cave_writer.h
+        cave_creator.cc
+        cave_creator.h
 )
 
 target_link_libraries(${target}

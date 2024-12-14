@@ -7,6 +7,7 @@ add_executable(${target}
 target_link_libraries(${target}
         PRIVATE
         maze_model
+        cave_model
         controller
         utils
         GTest::gtest_main)

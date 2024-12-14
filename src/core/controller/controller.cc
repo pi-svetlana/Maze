@@ -40,6 +40,10 @@ namespace ps {
         cave_model_->CreateFile(file_path);
     }
 
+    Cave& Controller::CreateNextStep(const size_t birth_limit, const size_t death_limit, bool& change) {
+        return cave_model_->CreateNextStep(birth_limit, death_limit, change);
+    }
+
 } // ps
 
 //int main() {

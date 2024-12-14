@@ -2,7 +2,8 @@
 
 #define private public
 #include "../core/model/maze_model/maze_model.h"
-#undef private
+#include "../core/model/cave_model/cave_model.h"
+
 
 namespace ps {
 
@@ -87,6 +88,43 @@ namespace ps {
             ASSERT_FALSE(CheckBit(maze[1][i], kRight));
         }
         ASSERT_TRUE(CheckBit(maze[1][3], kRight));
+    }
+
+    TEST(CaveGenerator, GenerateStartPosition_0) {
+        CaveModel cave_model;
+        cave_model.GenerateCave(4, 4, 0);
+        for (auto &row : cave_model.GetCave()) {
+            for (int &elem : row) {
+                ASSERT_EQ(elem, 0);
+            }
+        }
+    }
+
+    TEST(CaveGenerator, GenerateStartPosition_1) {
+        CaveModel cave_model;
+        cave_model.GenerateCave(4, 4, 100);
+        for (auto &row : cave_model.GetCave()) {
+            for (int &elem : row) {
+                ASSERT_EQ(elem, 1);
+            }
+        }
+    }
+
+    TEST(CaveGenerator, InvalidSize) {
+        CaveModel cave_model;
+        ASSERT_ANY_THROW(cave_model.GenerateCave(0, 10, 40));
+        ASSERT_ANY_THROW(cave_model.GenerateCave(10, 0, 40));
+        ASSERT_ANY_THROW(cave_model.GenerateCave(51, 10, 50));
+        ASSERT_ANY_THROW(cave_model.GenerateCave(10, 51, 40));
+    }
+
+    TEST(CaveCreator, CreateNextStep) {
+        CaveModel cave_model;
+        bool change = true;
+        Cave cave {{0, 1, 1, 0}, {1, 0, 0, 1}, {1, 0, 0, 1}, {0, 1, 1, 0}};
+        Cave ex_res {{1, 0, 0, 1}, {0, 1, 1, 0}, {0, 1, 1, 0}, {1, 0, 0, 1}};
+        Cave res = cave_model.creator_.CreateNextStep(1, 7, change, cave);
+        ASSERT_EQ(ex_res, res);
     }
 
 } // ps

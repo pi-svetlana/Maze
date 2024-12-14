@@ -1,3 +1,5 @@
+#include <QThread>
+#include <QCoreApplication>
 #include <QColorDialog>
 #include <QFileDialog>
 #include <QMessageBox>
@@ -229,5 +231,32 @@ void MainWindow::on_cave_wall_color_btn_clicked()
         QString color = QString("background-color: %1;").arg(new_wall_color.name());
         ui->cave_wall_color->setStyleSheet(color);
       }
+}
+
+
+void MainWindow::on_next_step_btn_clicked()
+{
+    bool change = true;
+    size_t death_limit = ui->death_limit->value();
+    size_t birth_limit = ui->birth_limit->value();
+    ui->cave_window->setCave(controller_->CreateNextStep(birth_limit, death_limit, change));
+    ui->cave_window->update();
+}
+
+
+void MainWindow::on_auto_gen_btn_clicked()
+{
+    bool change = true;
+    int count = 0;
+    size_t time = ui->interval->value();
+    size_t death_limit = ui->death_limit->value();
+    size_t birth_limit = ui->birth_limit->value();
+    while(change == true && count < 100) {
+        QThread::msleep(time);
+        ui->cave_window->setCave(controller_->CreateNextStep(birth_limit, death_limit, change));
+        ui->cave_window->update();
+        QCoreApplication::processEvents();
+        count++;
+    }
 }
 

@@ -21,5 +21,5 @@ clean:
 
 gcov_report: tests
 	mkdir -p report
-	gcovr -r . --html-details -o ./report/gcov_report.html -f core/model/searcher.cc -f core/model/generator.cc
+	gcovr -r . --html-details -o ./report/gcov_report.html -f core/model/maze_model/generator.cc -f core/model/maze_model/searcher.cc -f core/model/cave_model/cave_creator.cc -f core/model/cave_model/cave_generator.cc
 	open ./report/gcov_report.html

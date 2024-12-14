@@ -41,6 +41,10 @@ private slots:
 
     void on_cave_wall_color_btn_clicked();
 
+    void on_next_step_btn_clicked();
+
+    void on_auto_gen_btn_clicked();
+
 private:
     Ui::MainWindow *ui;
     ps::Controller* controller_;
