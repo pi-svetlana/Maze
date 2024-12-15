@@ -3,6 +3,7 @@
 #define private public
 #include "../core/model/maze_model/maze_model.h"
 #include "../core/model/cave_model/cave_model.h"
+#undef private
 
 
 namespace ps {
